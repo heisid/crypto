@@ -25,11 +25,24 @@ def isprime(n):
            result = True
    return result
 
+def error():
+   print("freaking error")
+   exit()
 
 if __name__ == "__main__":
-    if len(sys.argv) == 2:
-        # print(factors(int(sys.argv[1])))
-        print(isprime(int(sys.argv[1])))
+    if len(sys.argv) < 2:
+        print("Usage: %s function_to_call argument(s)" % sys.argv[0])
+        exit()
+    if sys.argv[1] == "factors":
+        try:
+            print(factors(int(sys.argv[2])))
+        except:
+            error()
+    elif sys.argv[1] == "isprime":
+        try:
+            print(isprime(int(sys.argv[2])))
+        except:
+            error()
     else:
-        print("argument invalid")
-
+        print("undefined function")
+        exit()
