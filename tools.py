@@ -31,6 +31,14 @@ def string_to_ascii(string_data):
 def ascii_to_string(ascii_list):
     return ''.join(chr(list_element) for list_element in ascii_list)
 
+def gcd(n1, n2):
+    if n1 < n2:
+        n1, n2 = n2, n1
+    if (not n2) or (n1 == n2):
+        return n1 # why does it always return None
+    gcd(n1-n2, n2)
+
+
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Usage: %s function_to_call argument(s)" % sys.argv[0])
