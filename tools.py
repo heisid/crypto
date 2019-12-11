@@ -35,8 +35,8 @@ def gcd(n1, n2):
     if n1 < n2:
         n1, n2 = n2, n1
     if (not n2) or (n1 == n2):
-        return n1 # why does it always return None
-    gcd(n1-n2, n2)
+        return n1
+    return gcd(n1-n2, n2) # finally
 
 
 if __name__ == "__main__":
