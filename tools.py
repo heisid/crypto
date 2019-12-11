@@ -17,7 +17,7 @@ def factors(n):
 
     return result
 
-def isprime(n):
+def is_prime(n):
    result = False
    if n and (n != 1):
        allfactors = factors(n)
@@ -25,24 +25,30 @@ def isprime(n):
            result = True
    return result
 
-def error():
-   print("freaking error")
-   exit()
+def string_to_ascii(string_data):
+   return [ord(character) for character in string_data]
+
+def ascii_to_string(ascii_list):
+    return ''.join(chr(list_element) for list_element in ascii_list)
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Usage: %s function_to_call argument(s)" % sys.argv[0])
         exit()
-    if sys.argv[1] == "factors":
-        try:
-            print(factors(int(sys.argv[2])))
-        except:
-            error()
-    elif sys.argv[1] == "isprime":
-        try:
-            print(isprime(int(sys.argv[2])))
-        except:
-            error()
+
+    function_todo = sys.argv[1]
+    if len(sys.argv) > 2:
+        args = sys.argv[2:]
+
+    if function_todo == "factors":
+        print(factors(int(args[0])))
+    elif function_todo == "isprime":
+        print(isprime(int(args[0])))
+    elif function_todo == "string_to_ascii":
+        print(string_to_ascii(args[0]))
+    elif function_todo == "ascii_to_string":
+        print(ascii_to_string(map(int, args)))
+            
     else:
         print("undefined function")
         exit()
