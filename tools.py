@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from math import sqrt
 import sys
 from collections import Counter
@@ -52,6 +54,12 @@ def euler_phi(m):
     for factor,counter in factors_counter.items():
         phi = phi * (factor**counter - factor**(counter-1))
     return phi
+
+def mod_inverse(number, mod):
+    if not are_coprime(number, mod):
+        raise Exception("%d and %d are not coprime" % (number,mod))
+    phi_of_mod = euler_phi(mod)
+    return (number**(phi_of_mod - 1)) % mod
     
 
 if __name__ == "__main__":
@@ -77,6 +85,8 @@ if __name__ == "__main__":
         print(are_coprime(int(args[0]), int(args[1])))
     elif function_todo == "euler_phi":
         print(euler_phi(int(args[0])))
+    elif function_todo == "mod_inverse":
+        print(mod_inverse(int(args[0]), int(args[1])))
             
     else:
         print("undefined function")
