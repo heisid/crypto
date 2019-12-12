@@ -36,7 +36,13 @@ def gcd(n1, n2):
         n1, n2 = n2, n1
     if (not n2) or (n1 == n2):
         return n1
-    return gcd(n1-n2, n2) # finally
+    return gcd(n1-n2, n2)
+
+def are_coprime(n1, n2):
+    if gcd(n1, n2) == 1:
+        return True
+    else:
+        return False
 
 
 if __name__ == "__main__":
@@ -56,6 +62,10 @@ if __name__ == "__main__":
         print(string_to_ascii(args[0]))
     elif function_todo == "ascii_to_string":
         print(ascii_to_string(map(int, args)))
+    elif function_todo == "gcd":
+        print(gcd(int(args[0]), int(args[1])))
+    elif function_todo == "are_coprime":
+        print(are_coprime(int(args[0]), int(args[1])))
             
     else:
         print("undefined function")
