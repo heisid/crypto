@@ -78,7 +78,7 @@ def shift_0based_to_ascii(num):
 
 if __name__ == "__main__":
    if len(sys.argv) < 2:
-      print("Usage: %s function_to_call argument(s)" % sys.argv[0])
+      print("Usage: {} function_to_call argument(s)".format(sys.argv[0]))
       exit()
 
    function_todo = sys.argv[1]
