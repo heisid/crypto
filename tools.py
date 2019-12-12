@@ -1,5 +1,6 @@
-import math
+from math import sqrt
 import sys
+from collections import Counter
 
 def factors(n):
     result = []
@@ -7,7 +8,7 @@ def factors(n):
         result.append(2)
         n = n / 2
 
-    for i in range(3, int(math.sqrt(n)) + 1, 2):
+    for i in range(3, int(sqrt(n)) + 1, 2):
         while n % i == 0:
             result.append(i)
             n = n / i
@@ -44,6 +45,14 @@ def are_coprime(n1, n2):
     else:
         return False
 
+def euler_phi(m):
+    prime_factors = factors(m)
+    factors_counter = Counter(prime_factors)
+    phi = 1
+    for factor,counter in factors_counter.items():
+        phi = phi * (factor**counter - factor**(counter-1))
+    return phi
+    
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
@@ -66,6 +75,8 @@ if __name__ == "__main__":
         print(gcd(int(args[0]), int(args[1])))
     elif function_todo == "are_coprime":
         print(are_coprime(int(args[0]), int(args[1])))
+    elif function_todo == "euler_phi":
+        print(euler_phi(int(args[0])))
             
     else:
         print("undefined function")
