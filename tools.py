@@ -28,11 +28,21 @@ def is_prime(n):
          result = True
    return result
 
-def string_to_ascii(string_data):
-   return [ord(character) for character in string_data]
+def string_to_ascii(text):
+   return [ord(character) for character in text]
 
 def ascii_to_string(ascii_list):
    return ''.join(chr(list_element) for list_element in ascii_list)
+
+def string_to_numcode(text):
+   text = string_to_ascii(text)
+   # printable ascii range 20 - 126, shift to 0 - 106
+   return map(lambda char: char - 20, text)
+
+def numcode_to_string(numcode):
+    # shift back to ascii code
+    numcode = map(lambda char: char + 20, numcode)
+    return ascii_to_string(numcode)
 
 def gcd(n1, n2):
    if n1 < n2:
@@ -70,11 +80,6 @@ def mod_inverse(number, mod):
       raise NotCoprimeError(number, mod)
    phi_of_mod = euler_phi(mod)
    return (number**(phi_of_mod - 1)) % mod
-
-def shift_ascii_to_0(c):
-    return c - 20
-def shift_0based_to_ascii(num):
-    return num + 20
 
 if __name__ == "__main__":
    if len(sys.argv) < 2:
