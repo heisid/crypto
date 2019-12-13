@@ -2,6 +2,7 @@
 
 import sys
 import tools
+import getopt
 
 def generate_possible_a_keys(mod):
    a_keys = list()
@@ -38,6 +39,7 @@ def affine_decrypt_text(ciphertext, a_key, b_key):
    plaintext = affine_decrypt(ciphertext, a_key, b_key, mod)
    return tools.numcode_to_string(plaintext)
 
+# TODO: file or stdin inputs, using getopt for clear
 # TODO: encrypt/decrypt binary
 
 if __name__ == "__main__":
