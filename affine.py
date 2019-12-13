@@ -68,7 +68,7 @@ if __name__ == "__main__":
 
    with open(infile, "r") as reader:
       for line in reader:
-         processed_line = func(line, a_key, b_key))
+         processed_line = func(line, a_key, b_key)
          print(processed_line)
          filebuffer.append(processed_line)
 
