@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# Affine Cipher: Encrypting and Decrypting
+# Sid
 
 import sys
 import tools
@@ -60,10 +62,20 @@ if __name__ == "__main__":
 
    func = FUNCTION_MAP[args.func]
    a_key, b_key = args.a, args.b
-   textfile = args.f
+   infile = args.f
+   outfile = infile + ".aff"
+   filebuffer = list()
 
-   with open(textfile) as file:
-      for line in file:
-         print(func(line, a_key, b_key))
+   with open(infile, "r") as reader:
+      for line in reader:
+         processed_line = func(line, a_key, b_key))
+         print(processed_line)
+         filebuffer.append(processed_line)
 
+   with open(outfile, "w") as writer:
+       writer.writelines(filebuffer)
+
+
+         
+   
 
