@@ -63,7 +63,10 @@ if __name__ == "__main__":
    func = FUNCTION_MAP[args.func]
    a_key, b_key = args.a, args.b
    infile = args.f
-   outfile = infile + ".aff"
+   if func == encrypt_text:
+      outfile = infile + ".aff"
+   else:
+      outfile = infile.replace(".aff", "")
    filebuffer = list()
 
    with open(infile, "r") as reader:
