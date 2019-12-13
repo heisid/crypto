@@ -43,19 +43,7 @@ def decrypt_text(ciphertext, a_key, b_key):
 # TODO: encrypt/decrypt binary
 
 if __name__ == "__main__":
-   """
-   This way is so sick
-   if len(sys.argv) < 4:
-      print("Usage: {} encrypt|decrypt a_key b_key string".format(sys.argv[0]))
-      exit()
-
-   if sys.argv[1] == "encrypt":
-      print(encrypt_text(sys.argv[3], int(sys.argv[1]), int(sys.argv[2])))
-   elif sys.argv[1] == "decrypt":
-      print(decrypt_text(sys.argv[3], int(sys.argv[1]), int(sys.argv[2])))
-   else:
-      print("Undefined")
-   """
+   
    FUNCTION_MAP = {"encrypt": encrypt_text, "decrypt": decrypt_text}
 
    parser = argparse.ArgumentParser()
@@ -66,13 +54,16 @@ if __name__ == "__main__":
 
    parser.add_argument("-a", type=int, required=True)
    parser.add_argument("-b", type=int, required=True)
-   parser.add_argument("-t", required=True)
+   parser.add_argument("-f", required=True)
 
    args = parser.parse_args()
 
    func = FUNCTION_MAP[args.func]
    a_key, b_key = args.a, args.b
-   text = args.t
-   print(func(text, a_key, b_key))
+   textfile = args.f
+
+   with open(textfile) as file:
+      for line in file:
+         print(func(line, a_key, b_key))
 
 
