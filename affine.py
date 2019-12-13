@@ -54,15 +54,15 @@ if __name__ == "__main__":
    # group.add_argument("func", choices=FUNCTION_MAP.keys())
    parser.add_argument("func", choices=FUNCTION_MAP.keys())
 
-   parser.add_argument("-a", type=int, required=True)
-   parser.add_argument("-b", type=int, required=True)
-   parser.add_argument("-f", required=True)
+   parser.add_argument("-a", "--a_key", type=int, required=True, help="'a' key of affine cipher (integer 0-106)")
+   parser.add_argument("-b", "--b_key", type=int, required=True, help="'b' key of affine cipher (integer 0-106)")
+   parser.add_argument("-f", "--file", required=True, help="file to encrypt or decrypt")
 
    args = parser.parse_args()
 
    func = FUNCTION_MAP[args.func]
-   a_key, b_key = args.a, args.b
-   infile = args.f
+   a_key, b_key = args.a_key, args.b_key
+   infile = args.file
    if func == encrypt_text:
       outfile = infile + ".aff"
    else:
@@ -71,9 +71,9 @@ if __name__ == "__main__":
 
    with open(infile, "r") as reader:
       for line in reader:
-         processed_line = func(line, a_key, b_key)
+         processed_line = func(line.rstrip('\n'), a_key, b_key)
          print(processed_line)
-         filebuffer.append(processed_line)
+         filebuffer.append(processed_line + '\n')
 
    with open(outfile, "w") as writer:
        writer.writelines(filebuffer)
