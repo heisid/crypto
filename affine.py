@@ -30,13 +30,13 @@ def encrypt_text(plaintext, a_key, b_key):
    # 107 is prime, don't worry about inverse existence
    mod = 107
    plaintext = tools.string_to_numcode(plaintext)
-   ciphertext = affine_encrypt(plaintext, a_key, b_key, mod)
+   ciphertext = encrypt(plaintext, a_key, b_key, mod)
    return tools.numcode_to_string(ciphertext)
 
 def decrypt_text(ciphertext, a_key, b_key):
    ciphertext = tools.string_to_numcode(ciphertext)
    mod = 107
-   plaintext = affine_decrypt(ciphertext, a_key, b_key, mod)
+   plaintext = decrypt(ciphertext, a_key, b_key, mod)
    return tools.numcode_to_string(plaintext)
 
 # TODO: file or stdin inputs
@@ -60,15 +60,19 @@ if __name__ == "__main__":
 
    parser = argparse.ArgumentParser()
 
-   group = parser.add_mutually_exclusive_group(required=True)
-   group.add_argument("encrypt", choices=FUNCTION_MAP.keys())
-   group.add_argument("decrypt", choices=FUNCTION_MAP.keys())
+   # group = parser.add_mutually_exclusive_group(required=True)
+   # group.add_argument("func", choices=FUNCTION_MAP.keys())
+   parser.add_argument("func", choices=FUNCTION_MAP.keys())
 
    parser.add_argument("-a", type=int, required=True)
    parser.add_argument("-b", type=int, required=True)
+   parser.add_argument("-t", required=True)
 
    args = parser.parse_args()
 
+   func = FUNCTION_MAP[args.func]
    a_key, b_key = args.a, args.b
+   text = args.t
+   print(func(text, a_key, b_key))
 
 
