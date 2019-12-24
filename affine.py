@@ -56,17 +56,15 @@ if __name__ == "__main__":
 
    parser.add_argument("-a", "--a_key", type=int, required=True, help="'a' key of affine cipher (integer 0-106)")
    parser.add_argument("-b", "--b_key", type=int, required=True, help="'b' key of affine cipher (integer 0-106)")
-   parser.add_argument("-f", "--file", required=True, help="file to encrypt or decrypt")
+   parser.add_argument("-if", "--input_file", required=True, help="file to encrypt or decrypt")
+   parser.add_argument("-of", "--output_file", required=True, help="output file")
 
    args = parser.parse_args()
 
    func = FUNCTION_MAP[args.func]
    a_key, b_key = args.a_key, args.b_key
-   infile = args.file
-   if func == encrypt_text:
-      outfile = infile + ".aff"
-   else:
-      outfile = infile.replace(".aff", "")
+   infile = args.input_file
+   outfile = args.output_file
    filebuffer = list()
 
    with open(infile, "r") as reader:
