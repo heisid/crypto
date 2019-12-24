@@ -80,42 +80,68 @@ def mod_inverse(n, mod):
    return (n**(phi_of_mod - 1)) % mod
 
 if __name__ == "__main__":
-   parser = argparse.ArgumentParser()
-   subparsers = parser.add_subparsers()
+   parser = argparse.ArgumentParser(
+      description="Various tools, can be imported or used directly"
+   )
+   subparsers = parser.add_subparsers(
+      title="Subcommands"
+   )
+   subparsers.required = True
+   subparsers.dest = "Subcommands"
 
-   parser_factors = subparsers.add_parser('factors')
-   parser_factors.add_argument('n', type=int)
+   parser_factors = subparsers.add_parser("factors",
+      help="Giving list of prime factors of a number"
+   )
+   parser_factors.add_argument("n", type=int, help="number(int)")
    parser_factors.set_defaults(func=factors)
 
-   parser_isprime = subparsers.add_parser('isprime')
-   parser_isprime.add_argument('n', type=int)
+   parser_isprime = subparsers.add_parser("isprime",
+      help="Checking if a number is prime"
+   )
+   parser_isprime.add_argument("n", type=int, help="number(int)")
    parser_isprime.set_defaults(func=is_prime)
 
-   parser_string2ascii = subparsers.add_parser('string_to_ascii')
-   parser_string2ascii.add_argument('text', type=str)
+   parser_string2ascii = subparsers.add_parser("string_to_ascii",
+      help="Converting string to ASCII codes"
+   )
+   parser_string2ascii.add_argument("text", type=str, 
+      help="Text to convert (enclosed in quotes)"
+   )
    parser_string2ascii.set_defaults(func=string_to_ascii)
 
-   parser_ascii2string = subparsers.add_parser('ascii_to_string')
-   parser_ascii2string.add_argument('ascii', type=int, nargs='+')
+   parser_ascii2string = subparsers.add_parser("ascii_to_string",
+      help="Convert ASCII codes into a string"
+   )
+   parser_ascii2string.add_argument("ascii", type=int, nargs="+",
+      help="ASCII codes to convert"
+   )
    parser_ascii2string.set_defaults(func=ascii_to_string)
 
-   parser_gcd = subparsers.add_parser('gcd')
-   parser_gcd.add_argument('n1', type=int)
-   parser_gcd.add_argument('n2', type=int)
+   parser_gcd = subparsers.add_parser("gcd",
+      help="Computing GCD / Greater common divisor of two numbers"
+   )
+   parser_gcd.add_argument("n1", type=int, help="First number(int)")
+   parser_gcd.add_argument("n2", type=int, help="Second number(int)")
    parser_gcd.set_defaults(func=gcd)
 
-   parser_arecoprime = subparsers.add_parser('arecoprime')
-   parser_arecoprime.add_argument('n1', type=int)
-   parser_arecoprime.add_argument('n2', type=int)
+   parser_arecoprime = subparsers.add_parser("arecoprime",
+      help="Check if two numbers are coprime"
+   )
+   parser_arecoprime.add_argument("n1", type=int, help="First number(int)")
+   parser_arecoprime.add_argument("n2", type=int, help="Second number(int)")
    parser_arecoprime.set_defaults(func=are_coprime)
 
-   parser_eulerphi = subparsers.add_parser('eulerphi')
-   parser_eulerphi.add_argument('m', type=int)
+   parser_eulerphi = subparsers.add_parser("eulerphi",
+      help="Computing Euler Phi Function of given number"
+   )
+   parser_eulerphi.add_argument("m", type=int, help="number(int)")
    parser_eulerphi.set_defaults(func=euler_phi)
 
-   parser_modinverse = subparsers.add_parser('modinverse')
-   parser_modinverse.add_argument('n', type=int)
-   parser_modinverse.add_argument('mod', type=int)
+   parser_modinverse = subparsers.add_parser("modinverse",
+      help="Computing modular multiplicative inverse"
+   )
+   parser_modinverse.add_argument("n", type=int, help="number(int)")
+   parser_modinverse.add_argument('mod', type=int, help="modular basis(int)")
    parser_modinverse.set_defaults(func=mod_inverse)
 
    args = vars(parser.parse_args())
