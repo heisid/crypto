@@ -75,7 +75,7 @@ if __name__ == "__main__":
          print(processed_line)
          filebuffer.append(processed_line + '\n')
 
-   with open(outfile, "w") as writer:
+   with open(outfile, "x") as writer:
        writer.writelines(filebuffer)
 
 

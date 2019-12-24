@@ -3,21 +3,19 @@
 from math import sqrt
 import sys
 from collections import Counter
+import argparse
 
 def factors(n):
    result = list()
    while n % 2 == 0:
       result.append(2)
       n = n / 2
-
    for i in range(3, int(sqrt(n)) + 1, 2):
       while n % i == 0:
          result.append(i)
          n = n / i
-
    if n > 2:
       result.append(int(n))
-
    return result
 
 def is_prime(n):
@@ -75,38 +73,51 @@ class NotCoprimeError(Exception):
         Exception.__init__(self, "{} and {} are not coprime".format(n1, n2))
         self.n1, self.n2 = n1, n2
 
-def mod_inverse(number, mod):
-   if not are_coprime(number, mod):
-      raise NotCoprimeError(number, mod)
+def mod_inverse(n, mod):
+   if not are_coprime(n, mod):
+      raise NotCoprimeError(n, mod)
    phi_of_mod = euler_phi(mod)
-   return (number**(phi_of_mod - 1)) % mod
+   return (n**(phi_of_mod - 1)) % mod
 
 if __name__ == "__main__":
-   if len(sys.argv) < 2:
-      print("Usage: {} function_to_call argument(s)".format(sys.argv[0]))
-      exit()
+   parser = argparse.ArgumentParser()
+   subparsers = parser.add_subparsers()
 
-   function_todo = sys.argv[1]
-   if len(sys.argv) > 2:
-      args = sys.argv[2:]
+   parser_factors = subparsers.add_parser('factors')
+   parser_factors.add_argument('n', type=int)
+   parser_factors.set_defaults(func=factors)
 
-   if function_todo == "factors":
-      print(factors(int(args[0])))
-   elif function_todo == "isprime":
-      print(is_prime(int(args[0])))
-   elif function_todo == "string_to_ascii":
-      print(string_to_ascii(args[0]))
-   elif function_todo == "ascii_to_string":
-      print(ascii_to_string(map(int, args)))
-   elif function_todo == "gcd":
-      print(gcd(int(args[0]), int(args[1])))
-   elif function_todo == "are_coprime":
-      print(are_coprime(int(args[0]), int(args[1])))
-   elif function_todo == "euler_phi":
-      print(euler_phi(int(args[0])))
-   elif function_todo == "mod_inverse":
-      print(mod_inverse(int(args[0]), int(args[1])))
-      
-   else:
-      print("undefined function")
-      exit()
+   parser_isprime = subparsers.add_parser('isprime')
+   parser_isprime.add_argument('n', type=int)
+   parser_isprime.set_defaults(func=is_prime)
+
+   parser_string2ascii = subparsers.add_parser('string_to_ascii')
+   parser_string2ascii.add_argument('text', type=str)
+   parser_string2ascii.set_defaults(func=string_to_ascii)
+
+   parser_ascii2string = subparsers.add_parser('ascii_to_string')
+   parser_ascii2string.add_argument('ascii', type=int, nargs='+')
+   parser_ascii2string.set_defaults(func=ascii_to_string)
+
+   parser_gcd = subparsers.add_parser('gcd')
+   parser_gcd.add_argument('n1', type=int)
+   parser_gcd.add_argument('n2', type=int)
+   parser_gcd.set_defaults(func=gcd)
+
+   parser_arecoprime = subparsers.add_parser('arecoprime')
+   parser_arecoprime.add_argument('n1', type=int)
+   parser_arecoprime.add_argument('n2', type=int)
+   parser_arecoprime.set_defaults(func=are_coprime)
+
+   parser_eulerphi = subparsers.add_parser('eulerphi')
+   parser_eulerphi.add_argument('m', type=int)
+   parser_eulerphi.set_defaults(func=euler_phi)
+
+   parser_modinverse = subparsers.add_parser('modinverse')
+   parser_modinverse.add_argument('n', type=int)
+   parser_modinverse.add_argument('mod', type=int)
+   parser_modinverse.set_defaults(func=mod_inverse)
+
+   args = vars(parser.parse_args())
+   func = args.pop('func')
+   print(func(**args))
