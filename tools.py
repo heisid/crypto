@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
+# Various tools for this crypto toy
+# Sid
 
 from math import sqrt
 import sys
 from collections import Counter
-import argparse
 
 def factors(n):
    result = list()
@@ -80,6 +81,8 @@ def mod_inverse(n, mod):
    return (n**(phi_of_mod - 1)) % mod
 
 if __name__ == "__main__":
+   import argparse
+   
    parser = argparse.ArgumentParser(
       description="Various tools, can be imported or used directly"
    )

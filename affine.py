@@ -3,8 +3,7 @@
 # Sid
 
 import sys
-import tools
-import argparse 
+import tools 
 
 def generate_possible_a_keys(mod):
    a_keys = list()
@@ -45,6 +44,7 @@ def decrypt_text(ciphertext, a_key, b_key):
 # TODO: encrypt/decrypt binary
 
 if __name__ == "__main__":
+   import argparse
    
    FUNCTION_MAP = {"encrypt": encrypt_text, "decrypt": decrypt_text}
 
