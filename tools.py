@@ -36,7 +36,7 @@ def ascii_to_string(ascii_list):
 def string_to_numcode(text):
    text = string_to_ascii(text)
    # printable ascii range 20 - 126, shift to 0 - 106
-   return map(lambda char: char - 20, text)
+   return list(map(lambda char: char - 20, text))
 
 def numcode_to_string(numcode):
     # shift back to ascii code
