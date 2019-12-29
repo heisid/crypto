@@ -21,12 +21,17 @@ class Vigenere:
     def __encrypt(self, plain_list):
         return [(plain_char+pass_char)%self.mod for plain_char, pass_char in list(zip(plain_list, self.__pass_to_num(len(plain_list))))]
 
+    def encrypt(self, plain_list):
+        return [(plain_char+pass_char)%self.mod for plain_char, pass_char in list(zip(plain_list, self.__pass_to_num(len(plain_list))))]
+    
     def __decrypt(self, cipher_list):
+        return [(cipher_char-pass_char)%self.mod for cipher_char, pass_char in list(zip(cipher_list, self.__pass_to_num(len(cipher_list))))]
+
+    def decrypt(self, cipher_list):
         return [(cipher_char-pass_char)%self.mod for cipher_char, pass_char in list(zip(cipher_list, self.__pass_to_num(len(cipher_list))))]
 
     def encrypt_text(self, plaintext):
         plaintext = tools.string_to_numcode(plaintext)
-        print(type(plaintext))
         ciphertext = self.__encrypt(plaintext)
         return tools.numcode_to_string(ciphertext)
 
